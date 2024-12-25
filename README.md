@@ -1,0 +1,2 @@
+# .deploy
+go-zero template
