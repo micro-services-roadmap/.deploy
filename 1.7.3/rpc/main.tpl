@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 
 	{{.imports}}
 
@@ -11,15 +12,34 @@ import (
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+
+	"github.com/micro-services-roadmap/kit-common"
+	"github.com/micro-services-roadmap/kit-common/gz"
+	"github.com/micro-services-roadmap/kit-common/kg"
+	"github.com/wordpress-plus/rpc-{{.serviceName}}/source/gen/dal"
+	"github.com/wordpress-plus/rpc-{{.serviceName}}/internal/scheduler"
 )
 
-var configFile = flag.String("f", "etc/{{.serviceName}}.yaml", "the config file")
+var configFile string
+
+func init() {
+	scheduler.Scheduler()
+	if con := os.Getenv("config"); len(con) != 0 {
+		configFile = con
+	} else {
+		configFile = "etc/{{.serviceName}}-staging.yaml"
+	}
+	fmt.Println("use config: " + configFile)
+
+	kit.Init(configFile)
+	dal.SetDefault(kg.DB)
+}
 
 func main() {
 	flag.Parse()
 
 	var c config.Config
-	conf.MustLoad(*configFile, &c)
+	conf.MustLoad(configFile, &c)
 	ctx := svc.NewServiceContext(c)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
@@ -29,6 +49,7 @@ func main() {
 			reflection.Register(grpcServer)
 		}
 	})
+	s.AddUnaryInterceptors(gz.LoggerInterceptor)
 	defer s.Stop()
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)

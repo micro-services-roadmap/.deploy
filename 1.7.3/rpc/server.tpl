@@ -5,6 +5,9 @@ package server
 import (
 	{{if .notStream}}"context"{{end}}
 
+	"github.com/zeromicro/go-zero/core/logx"
+	"google.golang.org/grpc/metadata"
+
 	{{.imports}}
 )
 

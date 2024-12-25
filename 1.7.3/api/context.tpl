@@ -4,6 +4,9 @@ import (
 	{{.configImport}}
 )
 
+
+var SvcCtx *ServiceContext
+
 type ServiceContext struct {
 	Config {{.config}}
 	{{.middleware}}
