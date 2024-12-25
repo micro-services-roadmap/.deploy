@@ -2,9 +2,12 @@ package {{.packageName}}
 
 import (
 	"context"
+	"github.com/micro-services-roadmap/kit-common/util/copier"
 
 	{{.imports}}
 
+	"github.com/wordpress-plus/rpc-pms/source/gen/dal"
+	"github.com/wordpress-plus/rpc-pms/source/gen/model"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
