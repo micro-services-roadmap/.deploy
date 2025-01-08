@@ -18,7 +18,7 @@ func {{.HandlerName}}(svcCtx *svc.ServiceContext) http.HandlerFunc {
   			return
 		}
 
-		{{end}}l := {{.LogicName}}.New{{.LogicType}}(gz.ConvertHeaderMD(r), svcCtx)
+		{{end}}l := {{.LogicName}}.New{{.LogicType}}(gz.ConvertHeaderMD(r), svcCtx, r)
 		{{if .HasResp}}resp, {{end}}err := l.{{.Call}}({{if .HasRequest}}&req{{end}})
 
 		if err != nil {
