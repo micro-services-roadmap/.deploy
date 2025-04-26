@@ -3,7 +3,7 @@ package {{.PkgName}}
 import (
 	"net/http"
 	"github.com/micro-services-roadmap/kit-common/errorx"
-	"github.com/micro-services-roadmap/oneid-core/modelo"
+	"github.com/kongmsr/oneid-core/modelo"
     "github.com/micro-services-roadmap/kit-common/gz"
 
 	"github.com/zeromicro/go-zero/rest/httpx"

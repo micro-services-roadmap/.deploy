@@ -2,7 +2,7 @@ package {{.PkgName}}
 
 import (
 	"net/http"
-	"github.com/micro-services-roadmap/oneid-core/model"
+	"github.com/kongmsr/oneid-core/model"
 
 	"github.com/zeromicro/go-zero/rest/httpx"
 	{{.ImportPackages}}
